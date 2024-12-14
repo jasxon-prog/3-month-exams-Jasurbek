@@ -35,7 +35,7 @@ def reply_button():
 @dp.message(CommandStart())
 async def start(message: Message):
     await message.reply(
-        text=f'{message.from_user.first_name} Assalomu alaykum\nBotimizga xush kelibsiz.',
+        text=f'{message.from_user.first_name} Assalomu alaykum\nSoff study otimizga xush kelibsiz.',
         reply_markup=reply_button()) 
     create_course()
 
