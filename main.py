@@ -6,17 +6,21 @@ from aiogram.fsm.state import StatesGroup, State
 from aiogram.fsm.context import FSMContext
 from databases import create_course, insert_course, fetch_course_by_id
 import asyncio
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
-bot = Bot(token="7789989928:AAHmoIebd8Nr3JhgR1-K7j2dfh3a9W-hRmo")
-Admin_id = 7289783045  
+TOKEN = os.getenv('TOKEN')
+ADMIN_ID = os.getenv ('ADMIN_ID') 
+
+bot = Bot(token=TOKEN)
+dp = Dispatcher()
 
 class addStudent(StatesGroup):
     course_name = State()
     course_price = State()
     description = State()
     teacher_info = State()
-
-dp = Dispatcher()
 
 def reply_button():
     kbs = [
@@ -73,7 +77,7 @@ async def process_callback(callback_query: types.CallbackQuery):
 
 @dp.message(lambda message: message.text == "Kurs qo'shish")
 async def set_course_name(message: Message, state: FSMContext):
-    if message.from_user.id == Admin_id:
+    if message.from_user.id == ADMIN_ID:
         await message.answer(text='Kurs nomi kiriting: ')
         await state.set_state(addStudent.course_name)
     else:
